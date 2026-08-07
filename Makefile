@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 BUILD = build
 
-TARGETS = c_putchar alphabet letters
+TARGETS = c_putchar alphabet letters numbers
 
 .PHONY: $(TARGETS) clean
 
