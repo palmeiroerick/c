@@ -1,0 +1,5 @@
+- Add buffering to c_putchar
+- Create a c_getchar function, using the read syscall
+- Compare the assembly code of the different versions of the letter function
+- Explore bitwise operations and implementation defined behavior
+- Study the different C I/O funcions
