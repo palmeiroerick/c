@@ -2,18 +2,16 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 BUILD = build
 
-.PHONY: c_putchar
+TARGETS = c_putchar alphabet letters
 
-c_putchar: $(BUILD)/c_putchar
+.PHONY: $(TARGETS) clean
+
+$(TARGETS): %: $(BUILD)/%
 	./$<
 
-build/c_putchar: src/c_putchar.c
+$(BUILD)/%: src/%.c
 	mkdir -p $(BUILD)
 	$(CC) $(CFLAGS) $^ -o $@
 
-alphabet: $(BUILD)/alphabet
-	./$<
-
-build/alphabet: src/alphabet.c
-	mkdir -p $(BUILD)
-	$(CC) $(CFLAGS) $^ -o $@
+clean:
+	rm -rf $(BUILD)
