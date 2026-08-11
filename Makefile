@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 BUILD = build
 
-TARGETS = c_putchar alphabet letters numbers is_negative comb
+TARGETS = c_putchar alphabet letters numbers is_negative comb comb2
 
 .PHONY: $(TARGETS) clean
 

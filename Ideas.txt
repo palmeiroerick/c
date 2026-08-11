@@ -4,3 +4,13 @@
 - Explore bitwise operations and implementation defined behavior
 - Study the different C I/O funcions
 - Find out a better way of doing the comb exercise
+- Different approachs to solve comb2:
+    - The one I first used: Use two while loops and simulate a number with two digits
+    using chars (when the char representing the last digit is grater than '9' I
+    sum the char representing the first digit by 1, and reset the last to '0');
+    - Four while loops (one for each digit, d1, d2, d3, d4);
+    - Use two int to represent the numbers instead of four chars;
+    - One loop + explicit state transition (as in the first comb exercise);
+    - Generete a combination by index.
+- How to verify if two numbers being representated as a sequence of chars (each char
+being one digit) are equal, grater than, or less than each other.
