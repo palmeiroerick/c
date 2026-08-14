@@ -3,6 +3,7 @@
 - Compare the assembly code of the different versions of the letter function
 - Explore bitwise operations and implementation-defined behavior
 - Study the different C I/O functions
+
 - Find out a better way of doing the comb exercise
 - Different approaches to solve comb2:
     - The one I first used: Use two while loops and simulate a number with two digits
@@ -14,3 +15,5 @@
     - Generate a combination by index.
 - How to verify if two numbers being represented as a sequence of chars (each char
 being one digit) are equal, greater than, or less than each other.
+
+- Make a putnbr that supports output in other numerical bases
