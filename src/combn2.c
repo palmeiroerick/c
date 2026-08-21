@@ -34,72 +34,32 @@ int power(const int base, const int exp) {
 }
 
 int next_comb(int comb) {
-    // int lead = comb / 10;
-    // int load = lead % 10;
-
-    // when n == 3: comb % 10000000 == 3456789
-    // i = 0; comb % 10^(0+1) == 9 - 0; if so the first digit was exhausted
-    // i = 1; comb % 10^(1+1) == 9 - 1; if so the second digit was exhausted
-    // So if the a digit was not exhausted increment it.
-    // And also reset the right digits relative to the exhausted digit to the small possible
-    // if comb == 379: return 389; if comb == 389: return 456
-
-    // So we need a exhaustion verifier, and a 'expansion' while loop.
-    // int power_of_ten = 10;
     int i = 0;
 
-    while (comb % power(10, i + 1) == 9 - i) {
+    // this while gives i the value of 10 when comb == 123456789, it should give the value 9
+    // but this function should not be called with the maximum possible value of comb
+    // is this behaviour a bug? I think is reasonable to not let this function to execute with
+    // tha maximum possible valie.
+    // Also 10^10 overflow i32, and 10^9 * k will probably too.
+    while ((comb % power(10, i + 1)) / power(10, i) == 9 - i) {
         i++;
     }
 
-    int lead = comb / power(10, i + 1);
+    if (i == 0) {
+        return comb + 1;
+    }
+
+    int lead = comb / power(10, i) + 1;
     int load = lead % 10;
 
-    int a = 1;
-    // when comb == 379; this should 'reset' it to 380
-    comb = lead * power(10, i + 1) + power(10, i + 1) * a;
-    a++;
+    comb = lead * power(10, i);
 
-    // then this loop should handle the final and adds + 9.
-    // load = lead (37) % 10 == 7;
-    // comb += load (7) + 2 
-    while (a <= i) {
-        comb += load * power(10, i + 1) + power(10, i + 1) * a;
-        i++;
-        a++;
+    int k = 1;
+
+    while (k <= i) {
+        comb += (load + k) * power(10, i - k);
+        k++;
     }
-
-    // if (comb % 100000000 == 23456789) {
-    //     int lead = comb / 100000000;
-    //     comb = (lead * 100000000 + 100000000) + (lead * 10000000 + 20000000) + (lead * 1000000 + 3000000) + (lead * 100000 + 400000) + (lead * 10000 + 50000) + (lead * 1000 + 6000) + (lead * 100 + 700) + (lead * 10 + 80) + (lead * 1 + 9);
-    // } else if (comb % 10000000 == 3456789) {
-    //     int lead = comb / 10000000;
-    //     int load = lead % 10;
-    //     comb = (lead * 10000000 + 10000000) + (load * 1000000 + 2000000) + (load * 100000 + 300000) + (load * 10000 + 40000) + (load * 1000 + 5000) + (load * 100 + 600) + (load * 10 + 70) + (load * 1 + 8);
-    // } else if (comb % 1000000 == 456789) {
-    //     int lead = comb / 1000000;
-    //     int load = lead % 10;
-    //     comb = (lead * 1000000 + 1000000) + (load * 100000 + 200000) + (load * 10000 + 30000) + (load * 1000 + 4000) + (load * 100 + 500) + (load * 10 + 60) + (load * 1 + 7);
-    // } else if (comb % 100000 == 56789) {
-    //     int lead = comb / 100000;
-    //     int load = lead % 10;
-    //     comb = (lead * 100000 + 100000) + (load * 10000 + 20000) + (load * 1000 + 3000) + (load * 100 + 400) + (load * 10 + 50) + (load * 1 + 6);
-    // } else if (comb % 10000 == 6789) {
-    //     int lead = comb / 10000;
-    //     int load = lead % 10;
-    //     comb = (lead * 10000 + 10000) + (load * 1000 + 2000) + (load * 100 + 300) + (load * 10 + 40) + (load + 5);
-    // } else if (comb % 1000 == 789) {
-    //     int lead = comb / 1000;
-    //     comb = (lead * 1000 + 1000) + ((lead % 10 + 2) * 100) + ((lead % 10 + 3) * 10) + (lead % 10 + 4);
-    // } else if (comb % 100 == 89) {
-    //     int lead = comb / 100;
-    //     comb = (lead * 100 + 100) + ((lead % 10 + 2) * 10) + (lead % 10 + 3);
-    // } else if (comb % 10 == 9) {
-    //     int lead = comb / 10;
-    //     comb = (lead * 10 + 10) + (lead % 10 + 2);
-    // } else {
-    //     comb++; // comb = (lead * 1 + 1)
-    // }
 
     return comb;
 }
@@ -123,6 +83,14 @@ void combn(const int n) {
         i++;
     }
 
+    // This codition creates a bug for the maximum possible value.
+    // It get next comb right after printing the previous one.
+    // When n = 9 we have end = 123456789, the last valid value for comb also is
+    // 123456789. The while prints it and get the next one, the problem is that 
+    // the next value will overflow and when the while verify the condition
+    // it will be false, this make an infinity loop with a overflowed comb.
+    // So I should think in a way of print_comb after getting the next, but for that
+    // I need to garantee that the first comb is printed. (There is other way?)
     while (comb <= end) {
         print_comb(comb, n);
         comb = next_comb(comb);
@@ -130,6 +98,6 @@ void combn(const int n) {
 }
 
 int main(void) {
-    combn(3);
+    combn(9);
     return 0;
 }
