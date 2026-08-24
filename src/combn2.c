@@ -19,15 +19,14 @@ void print_comb(int comb, const int n) {
         write(1, &str[i], 1);
         i--;
     }
-
-    write(1, ", ", 2);
 }
 
-int power(const int base, const int exp) {
+int power(const int base, int exp) {
     int result = 1;
 
-    for (int i = 0; i < exp; i++) {
+    while (exp > 0) {
         result *= base;
+        exp--;
     }
 
     return result;
@@ -36,11 +35,6 @@ int power(const int base, const int exp) {
 int next_comb(int comb) {
     int i = 0;
 
-    // this while gives i the value of 10 when comb == 123456789, it should give the value 9
-    // but this function should not be called with the maximum possible value of comb
-    // is this behaviour a bug? I think is reasonable to not let this function to execute with
-    // tha maximum possible valie.
-    // Also 10^10 overflow i32, and 10^9 * k will probably too.
     while ((comb % power(10, i + 1)) / power(10, i) == 9 - i) {
         i++;
     }
@@ -83,21 +77,22 @@ void combn(const int n) {
         i++;
     }
 
-    // This codition creates a bug for the maximum possible value.
-    // It get next comb right after printing the previous one.
-    // When n = 9 we have end = 123456789, the last valid value for comb also is
-    // 123456789. The while prints it and get the next one, the problem is that 
-    // the next value will overflow and when the while verify the condition
-    // it will be false, this make an infinity loop with a overflowed comb.
-    // So I should think in a way of print_comb after getting the next, but for that
-    // I need to garantee that the first comb is printed. (There is other way?)
-    while (comb <= end) {
-        print_comb(comb, n);
+    print_comb(comb, n);
+
+    while (comb != end) {
         comb = next_comb(comb);
+        write(1, ", ", 2);
+        print_comb(comb, n);
     } 
 }
 
 int main(void) {
+    combn(1);
+    write(1, "\n", 1);
+    combn(2);
+    write(1, "\n", 1);
+    combn(3);
+    write(1, "\n", 1);
     combn(9);
     return 0;
 }

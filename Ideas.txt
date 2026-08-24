@@ -17,3 +17,5 @@
 being one digit) are equal, greater than, or less than each other.
 
 - Make a putnbr that supports output in other numerical bases
+
+- Reimplement combn using different comb representations and generation methods.
