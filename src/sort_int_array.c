@@ -24,66 +24,74 @@ void putnbr(int n) {
     putchr(c);
 }
 
-void swap(int *a, int *b) {
-    *a ^= *b;
-    *b ^= *a;
-    *a ^= *b;
+int min(int x, int y) {
+    if (x < y)
+        return x;
+    return y;
 }
 
-void merge(int *subarray, const int lenght) {
-    // if (lenght == 2 && subarray[0] > subarray[1]) {
-    //     swap(&subarray[0], &subarray[1]);
-    // }
+void merge(int *subarray, int start, int mid, int end) {
+    int i, j, k;
+    int buffer[end + 1];
 
-    int buffer[lenght];
+    i = 0;
 
-    int i = 0;
-
-    while (i < lenght) {
+    while (i <= end) {
         buffer[i] = subarray[i];
         i++;
     }
 
-    // i = 0; while (i < lenght) { putnbr(buffer[i]); i++; } write(1, "\n", 1);
+    i = start;
+    j = mid + 1;
+    k = start;
 
-    if (lenght == 4) {
-        i = 0;
-        int j = lenght / 2;
-        int k = 0;
-
-        while (k < lenght) {
-            if (buffer[i] > buffer[j]) {
-                subarray[k] = buffer[j];
-                j++;
-            } else {
-                subarray[k] = buffer[i];
-                i++;
-            }
-            k++;
+    while (i <= mid && j <= end) {
+        if (buffer[i] > buffer[j]) {
+            subarray[k] = buffer[j];
+            j++;
+        } else {
+            subarray[k] = buffer[i];
+            i++;
         }
+        k++;
+    }
+
+    while (i <= mid) {
+        subarray[k] = buffer[i];
+        k++;
+        i++;
+    }
+
+    while (j <= end) {
+        subarray[k] = buffer[j];
+        k++;
+        j++;
     }
 }
 
 void sort(int *array, const int size) {
-    int subsize = 2;
-    int i = 0;
+    int subsize;
+    int start;
+    int mid;
+    int end;
 
-    while (i < size) {
-        merge(&array[i], subsize);
-        i+=subsize;
-    }
-
-    i = 0;
-    subsize = 4;
-    
-    while (i < size) {
-        merge(&array[i], subsize);
-        i+=subsize;
+    subsize = 1;
+    while (subsize < size) {
+        start = 0;
+        while (start < size) {
+            mid = min(start + subsize - 1, size - 1);
+            end = min(start + 2*subsize - 1, size - 1);
+            if (mid < end) {
+                merge(array, start, mid, end);
+            }
+            start+=2*subsize;
+        }
+        subsize*=2;
     }
 }
 
 int main(void) {
-    int array[10] = {3, 7, 1, 2, 8, 9, 0, 6, 4, 5};
+    int array[10] = {7, 3, 2, 1, 6, 9, 0, 8, 4, 5};
     int size = 10;
 
     sort(array, size);
@@ -91,6 +99,7 @@ int main(void) {
     int i = 0;
     while (i < size) {
         putnbr(array[i]);
+        write(1, ", ", 2);
         i++;
     }
 
