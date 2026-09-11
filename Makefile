@@ -4,6 +4,7 @@ BUILD = build
 
 TARGETS = c_putchar alphabet letters numbers is_negative comb comb2 putnbr combn combn2 ft_ft \
 		ultimate_ft swap div_mod ultimate_div_mod putstr strlen rev_int_array sort_int_array  \
+		strcpy
 
 .PHONY: $(TARGETS) clean
 

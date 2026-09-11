@@ -1,3 +1,5 @@
+### c00
+
 - Add buffering to c_putchar
 - Create a c_getchar function, using the read syscall
 - Compare the assembly code of the different versions of the letter function
@@ -19,3 +21,21 @@ being one digit) are equal, greater than, or less than each other.
 - Make a putnbr that supports output in other numerical bases
 
 - Reimplement combn using different comb representations and generation methods.
+
+### c01
+
+...
+
+### c02
+
+- Explore the restrict c keyword
+# The `putstrmem` function.
+    Isn't this `putstrmem` function interesting? I mean, the most natural way to think
+    about it is probably: “I want the address first, so I use `printf("%p", str);` then
+    I want the value, so `printf("%s", str);`”, but what if I want them both in a single
+    operation? Isn't this similar to why there are `puts`, `putchar`, `printf`, `fprintf`,
+    `dprintf`, etc.? Theoretically, we could have one big output function, `bprintf`
+    (big print format), that takes a destination, a format string, and parameters,
+    formats the output according to the format string and parameters, and then outputs
+    the formatted string to the destination. But is this the best approach?
+    Maybe yes, maybe no; it depends on your philosophy. Either way, this is interesting.
