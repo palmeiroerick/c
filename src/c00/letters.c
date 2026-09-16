@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <stdint.h>
+#include "libc.h"
 
 // void letters_v1(const char start, const char end, const int8_t step) {
 //     int8_t i = 0;
@@ -105,42 +104,23 @@
 //     }
 // }
 
-void letters(const char start, const char end, const int8_t step) {
+void letters(const char start, const char end, const int step) {
     char c = start;
-    int8_t i = 0;
+    int i = 0;
 
-    const int8_t mask = step >> ((sizeof(int8_t) * 8) - 1);
-    const int8_t abs_step = (step ^ mask) - mask;
+    const int mask = step >> ((sizeof(int) * 8) - 1);
+    const int abs_step = (step ^ mask) - mask;
 
-    // if (step > 0) {
-    //     if (start > end) {
-    //         diff = (26 + end) - start;
-    //     } else {
-    //         diff = end - start;
-    //     }
-    // } else if (step < 0) {
-    //     if (start > end) {
-    //         diff = start - end;
-    //     } else {
-    //         diff = (26 + start) - end;
-    //     }
-    // }
-    const int8_t sign = (step > 0) - (step < 0);
-    const int8_t diff = (sign * (end - start) + 26) % 26;
+    const int sign = (step > 0) - (step < 0);
+    const int diff = (sign * (end - start) + 26) % 26;
 
     while (i <= diff) {
-        write(1, &c, 1);
+        c_putchar(c);
         i += abs_step;
-        // if (c < 'a') {
-        //     c += 26;
-        // }
-        // if (c > 'z') {
-        //     c -= 26;
-        // }
         c = 'a' + (c - 'a' + step + 26) % 26;
     }
 
-    write(1, "\n", 1);
+    c_putchar('\n');
 }
 
 int main() {

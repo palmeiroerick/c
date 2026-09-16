@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include "libc.h"
 
 // typedef struct {
 //     char n1;
@@ -64,25 +64,24 @@ s_comb next_comb(s_comb comb) {
 }
 
 void print_comb(s_comb comb) {
-    char str[5];
+    char str[6];
     str[0] = comb.a / 10 + '0';
     str[1] = comb.a % 10 + '0';
     str[2] = ' ';
     str[3] = comb.b / 10 + '0';
     str[4] = comb.b % 10 + '0';
-    write(1, str, 5);
+    str[5] = '\0';
+    c_putstr(str);
 }
 
 void comb2(void) {
     s_comb comb = {0, 1};
 
-    // Print first combination without ", ", then the loop prints ", "
-    // between each combination, not printing after the last one.
     print_comb(comb);
     comb = next_comb(comb);
 
     while (comb.a < comb.b && comb.b <= 99) {
-        write(1, ", ", 2);
+        c_putstr(", ");
         print_comb(comb);
         comb = next_comb(comb);
     }

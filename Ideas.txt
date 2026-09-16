@@ -39,3 +39,7 @@ being one digit) are equal, greater than, or less than each other.
     formats the output according to the format string and parameters, and then outputs
     the formatted string to the destination. But is this the best approach?
     Maybe yes, maybe no; it depends on your philosophy. Either way, this is interesting.
+
+### Extra
+
+- Explore more how make, gcc, ld, and libraries work.

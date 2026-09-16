@@ -1,6 +1,6 @@
-#include <unistd.h>
+#include "libc.h"
 
-// void putnbr(int nbr) {
+// void c_putnbr(int nbr) {
 //     char digits[10];
 //     int length = 0; 
 
@@ -32,14 +32,14 @@
 //     }
 // }
 
-// void putnbr(int nb) {
+// void c_putnbr(int nb) {
 //     char c;
 
 //     if (nb < 0) {
 //         write(1, "-", 1);
 
 //         if (nb <= -10)
-//             putnbr(-(nb / 10));
+//             c_putnbr(-(nb / 10));
 
 //         c = -(nb % 10) + '0';
 //         write(1, &c, 1);
@@ -47,17 +47,35 @@
 //     }
 
 //     if (nb >= 10)
-// 		putnbr(nb / 10);
+// 		c_putnbr(nb / 10);
 
 //     c = nb % 10 + '0';
 //     write(1, &c, 1);
 // }
 
-void putchr(char c) {
-    write(1, &c, 1);
-}
+// void print_comb(int comb, const int n) {
+//     char str[n];
+//     int i = 0;
+//
+//     while (comb > 0) {
+//         str[i] = comb % 10 + '0';
+//         comb = comb / 10;
+//         i++;
+//     }
+//
+//     if (i < n) {
+//         str[i] = '0';
+//         i++;
+//     }
+//
+//     while (i >= 0) {
+//         write(1, &str[i], 1);
+//         i--;
+//     }
+// }
 
-void putnbr(int n) {
+
+void c_putnbr(int n) {
     char c;
     int q, r;
 
@@ -65,34 +83,34 @@ void putnbr(int n) {
     r = n % 10;
 
     if (n < 0) {
-        putchr('-');
+        c_putchar('-');
         q = -q;
         r = -r;
     }
 
     if (q != 0)
-        putnbr(q);
+        c_putnbr(q);
 
     c = r + '0';
-    putchr(c);
+    c_putchar(c);
 }
 
 int main(void) {
-    putnbr(1234567890);
-    write(1, "\n", 1);
-    putnbr(0x7fffffff);
-    write(1, "\n", 1);
-    putnbr(0x80000000);
-    write(1, "\n", 1);
-    putnbr(0xffffffff);
-    write(1, "\n", 1);
-    putnbr(0x00000000);
-    write(1, "\n", 1);
-    putnbr(0x00000001);
-    write(1, "\n", 1);
-    putnbr(42);
-    write(1, "\n", 1);
-    putnbr(-42);
-    write(1, "\n", 1);
+    c_putnbr(1234567890);
+    c_putchar('\n');
+    c_putnbr(0x7fffffff);
+    c_putchar('\n');
+    c_putnbr(0x80000000);
+    c_putchar('\n');
+    c_putnbr(0xffffffff);
+    c_putchar('\n');
+    c_putnbr(0x00000000);
+    c_putchar('\n');
+    c_putnbr(0x00000001);
+    c_putchar('\n');
+    c_putnbr(42);
+    c_putchar('\n');
+    c_putnbr(-42);
+    c_putchar('\n');
     return 0;
 }

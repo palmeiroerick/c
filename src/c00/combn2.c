@@ -1,25 +1,4 @@
-#include <unistd.h>
-
-void print_comb(int comb, const int n) {
-    char str[n];
-    int i = 0;
-
-    while (comb > 0) {
-        str[i] = comb % 10 + '0';
-        comb = comb / 10;
-        i++;
-    }
-
-    if (i < n) {
-        str[i] = '0';
-        i++;
-    }
-
-    while (i >= 0) {
-        write(1, &str[i], 1);
-        i--;
-    }
-}
+#include "libc.h"
 
 int power(const int base, int exp) {
     int result = 1;
@@ -77,22 +56,22 @@ void combn(const int n) {
         i++;
     }
 
-    print_comb(comb, n);
+    c_putnbr(comb);
 
     while (comb != end) {
         comb = next_comb(comb);
-        write(1, ", ", 2);
-        print_comb(comb, n);
+        c_putstr(", ");
+        c_putnbr(comb);
     } 
 }
 
 int main(void) {
     combn(1);
-    write(1, "\n", 1);
+    c_putchar('\n');
     combn(2);
-    write(1, "\n", 1);
+    c_putchar('\n');
     combn(3);
-    write(1, "\n", 1);
+    c_putchar('\n');
     combn(9);
     return 0;
 }

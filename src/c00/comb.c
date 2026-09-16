@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include "libc.h"
 
 // void combination(void) {
 //     char n1 = '0';
@@ -50,11 +50,11 @@ void comb(void) {
     s_comb comb = {'0', '1', '2'};
 
     while (1) {
-        write(1, &comb.n1, 1);
-        write(1, &comb.n2, 1);
-        write(1, &comb.n3, 1);
+        c_putchar(comb.n1);
+        c_putchar(comb.n2);
+        c_putchar(comb.n3);
         if (comb.n1 == '7') break;
-        write(1, ", ", 2);
+        c_putstr(", ");
         comb = next_comb(comb);
     }
 }

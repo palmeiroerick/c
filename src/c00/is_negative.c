@@ -1,16 +1,16 @@
-#include <unistd.h>
+#include "libc.h"
 
 // void is_negative(int number) {
 //     if (number < 0) {
-//         write(1, "N", 1);
+//         c_putchar('N');
 //     } else {
-//         write(1, "P", 1);
+//         c_putchar('P');
 //     }
 // }
 
 void is_negative(int number) {
     char c = (number < 0) ? 'N' : 'P';
-    write(1, &c, 1);
+    c_putchar(c);
 }
 
 int main(void) {

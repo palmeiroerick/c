@@ -1,6 +1,6 @@
 #include <unistd.h>
 
-void putstr(char *str) {
+void c_putstr(char *str) {
     int i = 0;
 
     while (str[i] != '\0') {
@@ -11,6 +11,6 @@ void putstr(char *str) {
 }
 
 int main(void) {
-    putstr("Hello, World!");
+    c_putstr("Hello, World!");
     return 0;
 }

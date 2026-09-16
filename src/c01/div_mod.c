@@ -1,28 +1,4 @@
-#include <unistd.h>
-
-void putchr(char c) {
-    write(1, &c, 1);
-}
-
-void putnbr(int n) {
-    char c;
-    int q, r;
-
-    q = n / 10;
-    r = n % 10;
-
-    if (n < 0) {
-        putchr('-');
-        q = -q;
-        r = -r;
-    }
-
-    if (q != 0)
-        putnbr(q);
-
-    c = r + '0';
-    putchr(c);
-}
+#include "libc.h"
 
 void div_mod(const int *a, const int *b, int *div, int *mod) {
     *div = *a / *b;
@@ -35,8 +11,8 @@ int main(void) {
     int div;
     int mod;
     div_mod(&a, &b, &div, &mod);
-    putnbr(div);
-    putchr('\n');
-    putnbr(mod);
+    c_putnbr(div);
+    c_putchar('\n');
+    c_putnbr(mod);
     return 0;
 }

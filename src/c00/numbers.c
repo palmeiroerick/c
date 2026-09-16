@@ -1,10 +1,10 @@
-#include <unistd.h>
+#include "libc.h"
 
 void numbers(void) {
     char c = '0';
 
     while (c <= '9') {
-        write(1, &c, 1);
+        c_putchar(c);
         c++;
     }
 }
