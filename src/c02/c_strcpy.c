@@ -1,15 +1,5 @@
-#include <unistd.h>
 #include <stdint.h>
-
-void putstr(char *str) {
-    int i = 0;
-
-    while (str[i] != '\0') {
-        i++;
-    }
-
-    write(1, str, i);
-}
+#include "libc.h"
 
 void putstrmem(char *str) {
     char digits[16] = {
@@ -38,19 +28,31 @@ void putstrmem(char *str) {
         i++;
     }
 
-    putstr(address_str);
-    write(1, " -> ", 4);
-    putstr(str);
-    write(1, "\n", 1);
+    c_putstr(address_str);
+    c_putstr(" -> ");
+    c_putstr(str);
+    c_putstr("\n");
 }
 
 // char *c_stpcpy(char *restrict dst, const char *restrict src) {
+char *c_strcpy(char *dest, const char *src) {
+    int i = 0;
 
-// }
+    while (src[i]) {
+        dest[i] = src[i];
+        i++;
+    }
+
+    dest[i] = '\0';
+
+    return dest;
+}
 
 int main(void) {
     char *hello = "Hello, World!";
-    char *copy = hello;
+    char copy[14];
+
+    c_strcpy(copy, hello);
     putstrmem(hello);
     putstrmem(copy);
     return 0;
