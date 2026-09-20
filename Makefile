@@ -9,7 +9,7 @@ c01 =	ft_ft ultimate_ft swap div_mod ultimate_div_mod \
 		c_putstr c_strlen rev_int_array sort_int_array 
 
 c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
-		is_upper is_print
+		is_upper is_print upper lower
 
 .PHONY: $(c00) $(c01) $(c02) clean
 

@@ -41,6 +41,8 @@ being one digit) are equal, greater than, or less than each other.
     Maybe yes, maybe no; it depends on your philosophy. Either way, this is interesting.
 - The `putstrmem` is wrong fix it.
 - I don't like the way that `is_alpha` is tested.
+- `char *str = "Hello, World!"` introduces segfault when modifying some str[i],
+    while `char str[] = "Hello, World!"` don't.
 
 ### Extra
 
