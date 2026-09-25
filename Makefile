@@ -10,7 +10,7 @@ c01 =	ft_ft ultimate_ft swap div_mod ultimate_div_mod \
 
 c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
 		is_upper is_print upper lower capitalize \
-		c_strlcpy
+		c_strlcpy putstrnp
 
 .PHONY: $(c00) $(c01) $(c02) clean
 

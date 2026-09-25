@@ -43,7 +43,11 @@ being one digit) are equal, greater than, or less than each other.
 - I don't like the way that `is_alpha` is tested.
 - `char *str = "Hello, World!"` introduces segfault when modifying some str[i],
     while `char str[] = "Hello, World!"` don't.
+- Shlemiel the painter’s algorithm
+- strcpy, strncpy, strlcpy; different function contracts
+- Make putstrnp using a buffer to store characters, not simply throwing them to stdout.
 
 ### Extra
 
 - Explore more how make, gcc, ld, and libraries work.
+- How to debug stuff.
