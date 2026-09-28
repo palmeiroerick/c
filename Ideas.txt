@@ -47,6 +47,9 @@ being one digit) are equal, greater than, or less than each other.
 - strcpy, strncpy, strlcpy; different function contracts
 - Make putstrnp using a buffer to store characters, not simply throwing them to stdout.
 
+- Functions like is_print should expect char, char *, unsigned char? What is the better type?
+    Assuming that I can need to verify single chars, bytes, or strings?
+
 ### Extra
 
 - Explore more how make, gcc, ld, and libraries work.
