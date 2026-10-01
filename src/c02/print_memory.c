@@ -1,6 +1,17 @@
 #include "libc.h"
 #include "stdint.h"
 
+// Maybe I should maintaing this code as it is right now.
+// Even with the `column < size` bug. This can be a good
+// Material for future revision and reference.
+
+// This function uses that logic of being based on side effects. It
+// calculates the character to print and prints it to stdout. This is
+// becoming a recuring pattern in these c exercises. Coming back later
+// to this, and the other exercises, and tring to store and return the
+// output data would be interesting. The function merely operates on
+// data, and the caller decides what to do with it.
+
 int is_print(unsigned char c) {
     return c >= ' ' && c <= '~';
 }
@@ -27,6 +38,8 @@ void print_address(unsigned char *byte) {
     uintptr_t low_nibble = address % 16;
     output[0] = g_hex_digits[low_nibble];
 
+    // Is it possible to generate the output string in the
+    // proper order without needing to reverse it?
     int i = 1;
     while (i < size * 2) {
         low_nibble = high_nibble % 16;
@@ -46,6 +59,14 @@ void print_address(unsigned char *byte) {
     }
 }
 
+// I ended up adding two functions that perform basically the same
+// operation. One byte can be representated by exactly two hexadecimal
+// digits. So we don't need to loop or to reverse it.
+// This is a good function? As far as I understand—and assuming c_putchar
+// works—it will always produce the correct output. But again, This is a
+// good function. Having an `itoa()` that supports other numerical bases
+// and casting the byte to a int would be better? Because, this would
+// remove the duplicated hexadecimal convertion logic.
 void print_byte_hex(unsigned char byte) {
     c_putchar(g_hex_digits[byte / 16]);
     c_putchar(g_hex_digits[byte % 16]);
@@ -63,6 +84,14 @@ void print_byte_hex(unsigned char byte) {
 void *print_memory(void *address, size_t size) {
     unsigned char *data = (unsigned char *)address;
 
+    // I am representing a one dimentional byte array as a two
+    // dimentional lines-columns abstraction. Thinking in terms of lines
+    // is probably the correct approach, but maybe representing lines
+    // as byte slices is a better representation of what should be printed.
+    // I wonder what is the difference in the assembly of both approachs.
+    // But it's probably less interesting I would guess. The former will
+    // probably simply have instructions translating between the two
+    // dimentional representation and the real index.
     const size_t columns = 16;
     const size_t lines = size % columns == 0 ? size / columns : size / columns + 1;
     size_t line = 0;
@@ -72,6 +101,15 @@ void *print_memory(void *address, size_t size) {
         print_address(data + line * columns);
         c_putstr(": ");
 
+        // That's a interesting bug `column < size`
+        // Because the variable are mesuring distinct things.
+        // Column is the current position within a line [0 .. 15 when
+        // columns are 16], while size is the data boudiary.
+        // if lines == 1, size is less than 16, so the valid indexes 
+        // are, indeed, 0 .. 15, columns and size will match.
+        // But for every data with more that 1 line, this size will
+        // always be more or equal 16. Therefore `column < size` will
+        // always be true, never preventing iteration on invalid indexes.
         while (column < columns && column < size) {
             size_t index = line * columns + column;
             print_byte_hex(data[index]);
@@ -96,11 +134,13 @@ void *print_memory(void *address, size_t size) {
         line++;
     }
 
-
     return address;
 }
 
 int main(void) {
+    // I should stop being lazy and develop a small script to generate
+    // this data automatically from a input string. Maybe randomizing
+    // non-pritable character. It will be handy to create test cases.
     unsigned char data[] = {
         0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x2c, 0x20, 0x66,
         0x72, 0x69, 0x65, 0x6e, 0x64, 0x73, 0x2e, 0x09,
