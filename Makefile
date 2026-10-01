@@ -12,7 +12,9 @@ c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
 		is_upper is_print upper lower capitalize \
 		c_strlcpy putstrnp print_memory
 
-.PHONY: $(c00) $(c01) $(c02) clean
+c03 =	c_strcmp
+
+.PHONY: $(c00) $(c01) $(c02) $(c03) clean
 
 LIB = build/lib/libc.a
 
@@ -37,6 +39,13 @@ $(c02): %: $(BUILD)/c02/%
 	./$<
 
 $(BUILD)/c02/%: src/c02/%.c $(LIB)
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) $^ -o $@
+
+$(c03): %: $(BUILD)/c03/%
+	./$<
+
+$(BUILD)/c03/%: src/c03/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $^ -o $@
 
