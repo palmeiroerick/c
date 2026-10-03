@@ -12,7 +12,7 @@ c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
 		is_upper is_print upper lower capitalize \
 		c_strlcpy putstrnp print_memory
 
-c03 =	c_strcmp
+c03 =	c_strcmp c_strncmp
 
 .PHONY: $(c00) $(c01) $(c02) $(c03) clean
 
