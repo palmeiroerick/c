@@ -50,6 +50,14 @@ being one digit) are equal, greater than, or less than each other.
 - Functions like is_print should expect char, char *, unsigned char? What is the better type?
     Assuming that I can need to verify single chars, bytes, or strings?
 
+### c03
+
+- Explore the different concatenation functions.
+- I still don't quite understand their existence.
+    strcat: unbounded destination assumption;
+    strncat: bounded source contribution, but not destination capacity;
+    strlcat: destination capacity is explicitly supplied and truncation is detectable.
+
 ### Extra
 
 - Explore more how make, gcc, ld, and libraries work.
