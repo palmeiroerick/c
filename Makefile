@@ -14,6 +14,8 @@ c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
 
 c03 =	c_strcmp c_strncmp c_strcat c_strncat c_strstr c_strlcat
 
+c04 =	r_strlen 
+
 .PHONY: $(c00) $(c01) $(c02) $(c03) clean
 
 LIB = build/lib/libc.a
@@ -48,6 +50,13 @@ $(c03): %: $(BUILD)/c03/%
 $(BUILD)/c03/%: src/c03/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $^ -o $@
+
+$(c04): %: $(BUILD)/c04/%
+	./$<
+
+$(BUILD)/c04/%: src/c04/%.c $(LIB)
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) $< $(LIB) -o $@
 
 clean:
 	rm -rf $(BUILD)
