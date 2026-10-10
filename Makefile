@@ -14,7 +14,7 @@ c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
 
 c03 =	c_strcmp c_strncmp c_strcat c_strncat c_strstr c_strlcat
 
-c04 =	r_strlen 
+c04 =	r_strlen r_putstr 
 
 .PHONY: $(c00) $(c01) $(c02) $(c03) clean
 
