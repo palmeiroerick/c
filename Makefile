@@ -16,7 +16,9 @@ c03 =	c_strcmp c_strncmp c_strcat c_strncat c_strstr c_strlcat
 
 c04 =	r_strlen r_putstr r_putnbr 
 
-.PHONY: $(c00) $(c01) $(c02) $(c03) $(c04) clean
+r04 =	r_putnbr-rs 
+
+.PHONY: $(c00) $(c01) $(c02) $(c03) $(c04) $(r04) clean
 
 LIB = build/lib/libc.a
 
@@ -57,6 +59,15 @@ $(c04): %: $(BUILD)/c04/%
 $(BUILD)/c04/%: src/c04/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $< $(LIB) -o $@
+
+$(r04): %: $(BUILD)/c04/%
+	./$<
+
+RUST_SOURCES = $(patsubst %-rs,%,$(r04))
+
+$(addprefix $(BUILD)/c04/,$(r04)): $(BUILD)/c04/%-rs: src/c04/%.rs
+	mkdir -p $(@D)
+	rustc $< -o $@
 
 clean:
 	rm -rf $(BUILD)
