@@ -14,60 +14,69 @@ c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
 
 c03 =	c_strcmp c_strncmp c_strcat c_strncat c_strstr c_strlcat
 
-c04 =	r_strlen r_putstr r_putnbr 
+c04 =	r_strlen r_putstr r_putnbr
 
 r04 =	r_putnbr-rs 
 
-.PHONY: $(c00) $(c01) $(c02) $(c03) $(c04) $(r04) clean
+c_itoa = itoa itoa2 itoa3 
+
+.PHONY: $(c00) $(c01) $(c02) $(c03) $(c04) $(r04) $(c_itoa) clean
 
 LIB = build/lib/libc.a
 
 $(LIB):
 	$(MAKE) -C lib
 
-$(c00): %: $(BUILD)/c00/%
+$(c00): %: $(BUILD)/src/c00/%
 	./$<
 
-$(BUILD)/c00/%: src/c00/%.c $(LIB)
+$(BUILD)/src/c00/%: src/c00/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $< $(LIB) -o $@
 
-$(c01): %: $(BUILD)/c01/%
+$(c01): %: $(BUILD)/src/c01/%
 	./$<
 
-$(BUILD)/c01/%: src/c01/%.c $(LIB)
+$(BUILD)/src/c01/%: src/c01/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(c02): %: $(BUILD)/c02/%
+$(c02): %: $(BUILD)/src/c02/%
 	./$<
 
-$(BUILD)/c02/%: src/c02/%.c $(LIB)
+$(BUILD)/src/c02/%: src/c02/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(c03): %: $(BUILD)/c03/%
+$(c03): %: $(BUILD)/src/c03/%
 	./$<
 
-$(BUILD)/c03/%: src/c03/%.c $(LIB)
+$(BUILD)/src/c03/%: src/c03/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(c04): %: $(BUILD)/c04/%
+$(c04): %: $(BUILD)/src/c04/%
 	./$<
 
-$(BUILD)/c04/%: src/c04/%.c $(LIB)
+$(BUILD)/src/c04/%: src/c04/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $< $(LIB) -o $@
 
-$(r04): %: $(BUILD)/c04/%
+$(r04): %: $(BUILD)/src/c04/%
 	./$<
 
 RUST_SOURCES = $(patsubst %-rs,%,$(r04))
 
-$(addprefix $(BUILD)/c04/,$(r04)): $(BUILD)/c04/%-rs: src/c04/%.rs
+$(addprefix $(BUILD)/src/c04/,$(r04)): $(BUILD)/src/c04/%-rs: src/c04/%.rs
 	mkdir -p $(@D)
 	rustc $< -o $@
+
+$(c_itoa): %: $(BUILD)/extra/itoa/%
+	./$<
+
+$(BUILD)/extra/itoa/%: extra/itoa/%.c $(LIB)
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) $< $(LIB) -o $@
 
 clean:
 	rm -rf $(BUILD)
