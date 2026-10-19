@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Ilib
+CFLAGS = -Wall -Wextra -Werror
 BUILD = build
 
 c00 =	c_putchar alphabet letters numbers is_negative \
@@ -32,35 +32,35 @@ $(c00): %: $(BUILD)/src/c00/%
 
 $(BUILD)/src/c00/%: src/c00/%.c $(LIB)
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $< $(LIB) -o $@
+	$(CC) $(CFLAGS) -Ilib $< $(LIB) -o $@
 
 $(c01): %: $(BUILD)/src/c01/%
 	./$<
 
 $(BUILD)/src/c01/%: src/c01/%.c $(LIB)
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) -Ilib $^ -o $@
 
 $(c02): %: $(BUILD)/src/c02/%
 	./$<
 
 $(BUILD)/src/c02/%: src/c02/%.c $(LIB)
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) -Ilib $^ -o $@
 
 $(c03): %: $(BUILD)/src/c03/%
 	./$<
 
 $(BUILD)/src/c03/%: src/c03/%.c $(LIB)
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) -Ilib $^ -o $@
 
 $(c04): %: $(BUILD)/src/c04/%
 	./$<
 
 $(BUILD)/src/c04/%: src/c04/%.c $(LIB)
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $< $(LIB) -o $@
+	$(CC) $(CFLAGS) -Ilib $< $(LIB) -o $@
 
 $(r04): %: $(BUILD)/src/c04/%
 	./$<
@@ -77,6 +77,17 @@ $(c_itoa): %: $(BUILD)/extra/itoa/%
 $(BUILD)/extra/itoa/%: extra/itoa/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $< $(LIB) -o $@
+
+os00 =	hello_process
+
+.PHONY: $(os00)
+
+$(os00): %: $(BUILD)/ostep/os00/%
+	./$<
+
+$(BUILD)/ostep/os00/%: ostep/os00/%.c
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	rm -rf $(BUILD)
