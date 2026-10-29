@@ -62,3 +62,8 @@ being one digit) are equal, greater than, or less than each other.
 
 - Explore more how make, gcc, ld, and libraries work.
 - How to debug stuff.
+- Exercises with int arrays [I've doing just char arrays and cstrings].
+
+### Some mini-projects ideas:
+- stack-based simple virtual machine
+- register-based simple virtual machine

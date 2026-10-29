@@ -14,7 +14,7 @@ c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
 
 c03 =	c_strcmp c_strncmp c_strcat c_strncat c_strstr c_strlcat
 
-c04 =	r_strlen r_putstr r_putnbr r_atoi
+c04 =	r_strlen r_putstr r_putnbr r_atoi r_putnbr_b
 
 r04 =	r_putnbr-rs 
 
@@ -78,14 +78,14 @@ $(BUILD)/extra/itoa/%: extra/itoa/%.c $(LIB)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $< $(LIB) -o $@
 
-os00 =	hello_process
+os00 =	hello_process hello_wait fork_counter grandchild
 
 .PHONY: $(os00)
 
-$(os00): %: $(BUILD)/ostep/os00/%
+$(os00): %: $(BUILD)/os/os00/%
 	./$<
 
-$(BUILD)/ostep/os00/%: ostep/os00/%.c
+$(BUILD)/os/os00/%: os/os00/%.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $< -o $@
 
