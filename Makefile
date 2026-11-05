@@ -14,7 +14,7 @@ c02 =	c_strcpy c_strncpy is_alpha is_numeric is_lower \
 
 c03 =	c_strcmp c_strncmp c_strcat c_strncat c_strstr c_strlcat
 
-c04 =	r_strlen r_putstr r_putnbr r_atoi r_putnbr_b
+c04 =	r_strlen r_putstr r_putnbr r_atoi r_putnbr_b r_atoi_b
 
 r04 =	r_putnbr-rs 
 
