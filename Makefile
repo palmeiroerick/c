@@ -18,7 +18,7 @@ c04 =	r_strlen r_putstr r_putnbr r_atoi r_putnbr_b r_atoi_b
 
 r04 =	r_putnbr-rs 
 
-c05 =	fatorial power
+c05 =	fatorial power fibonacci
 
 c_itoa = itoa itoa2 itoa3 
 
