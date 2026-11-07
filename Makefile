@@ -18,6 +18,8 @@ c04 =	r_strlen r_putstr r_putnbr r_atoi r_putnbr_b r_atoi_b
 
 r04 =	r_putnbr-rs 
 
+c05 =	fatorial
+
 c_itoa = itoa itoa2 itoa3 
 
 .PHONY: $(c00) $(c01) $(c02) $(c03) $(c04) $(r04) $(c_itoa) clean
@@ -70,6 +72,13 @@ RUST_SOURCES = $(patsubst %-rs,%,$(r04))
 $(addprefix $(BUILD)/src/c04/,$(r04)): $(BUILD)/src/c04/%-rs: src/c04/%.rs
 	mkdir -p $(@D)
 	rustc $< -o $@
+
+$(c05): %: $(BUILD)/src/c05/%
+	./$<
+
+$(BUILD)/src/c05/%: src/c05/%.c $(LIB)
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -Ilib $< $(LIB) -o $@
 
 $(c_itoa): %: $(BUILD)/extra/itoa/%
 	./$<
