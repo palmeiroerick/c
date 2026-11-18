@@ -58,6 +58,12 @@ being one digit) are equal, greater than, or less than each other.
     strncat: bounded source contribution, but not destination capacity;
     strlcat: destination capacity is explicitly supplied and truncation is detectable.
 
+### c0
+
+- Implement a stack;
+- Explore backtracking;
+- Implement a n-queens iteratively using a custom stack, instead of recursion;
+
 ### Extra
 
 - Explore more how make, gcc, ld, and libraries work.
